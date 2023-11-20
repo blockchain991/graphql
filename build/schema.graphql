@@ -1,0 +1,199 @@
+type GalileoProtocolDeployed @entity(immutable: true) {
+  id: Bytes!
+  _mintingContract: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Initialized @entity(immutable: true) {
+  id: Bytes!
+  version: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type GalileoProtocol @entity {
+  # contract address
+  id: ID!
+  # mint
+  nftMint: [HandleMint!] @derivedFrom(field: "collections")
+  bulkNftMint: [HandleMintBulk!] @derivedFrom(field: "collections")
+  mints: [Mint!] @derivedFrom(field: "collections")
+  metadataUpdate: [HandleUpdateUri!] @derivedFrom(field: "collections")
+  bulkMetadataUpdate: [HandleUpdatedBulkUri!] @derivedFrom(field: "collections")
+  transfer: [Transfer!] @derivedFrom(field: "collections")
+  transferMultiple: [TransferMultipleNft!] @derivedFrom(field: "collections")
+}
+
+type Mint @entity {
+  id: Bytes!
+  _minter: Bytes! # address
+  _tokenId: BigInt! # uint256
+  collections: GalileoProtocol!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type HandleMint @entity(immutable: true) {
+  id: Bytes!
+  minter: Bytes! # address
+  tokenId: BigInt! # uint256
+  serial: String! # string
+  seller: Bytes! # address
+  collections: GalileoProtocol!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Approval @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  approved: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ApprovalForAll @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type HandleCalculation @entity(immutable: true) {
+  id: Bytes!
+  admin: Bytes! # address
+  amount: BigInt! # uint256
+  cal: BigInt! # uint256
+  count: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type HandleLazyMint @entity(immutable: true) {
+  id: Bytes!
+  signer: Bytes! # address
+  minter: Bytes! # address
+  price: BigInt! # uint256
+  tokenId: BigInt! # uint256
+  seller: Bytes! # address
+  collections: GalileoProtocol!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type HandleMintBulk @entity(immutable: true) {
+  id: Bytes!
+  minter: Bytes! # address
+  tokenId: [BigInt!]! # uint256[]
+  serial: [String!]! # string[]
+  seller: Bytes! # address
+  collections: GalileoProtocol!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type HandleUpdateUri @entity(immutable: true) {
+  id: Bytes!
+  collections: GalileoProtocol!
+  tokenId: BigInt! # uint256
+  newTokenURI: String! # string
+  updator: Bytes! # address
+  oldTokenURI: String! # string
+  count: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type HandleUpdatedBulkUri @entity(immutable: true) {
+  id: Bytes!
+  tokenId: [BigInt!]! # uint256[]
+  newTokenURI: [String!]! # string[]
+  updator: Bytes! # address
+  oldTokenURI: String! # string
+  count: BigInt! # uint256
+  collections: GalileoProtocol!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type HanldeSetfee @entity(immutable: true) {
+  id: Bytes!
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RoleAdminChanged @entity(immutable: true) {
+  id: Bytes!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+type RoleGranted @entity(immutable: true) {
+  id: Bytes!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+type RoleRevoked @entity(immutable: true) {
+  id: Bytes!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Transfer @entity(immutable: true) {
+  id: Bytes!
+  collections: GalileoProtocol!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TransferMultipleNft @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenIDs: [BigInt!]! # uint256[]
+  collections: GalileoProtocol!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
